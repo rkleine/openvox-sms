@@ -1,43 +1,38 @@
-var osms = require('../index');
-var sms = new osms({host: 'localhost'});
+const osms = require('../index');
+const sms = new osms({ host: '192.168.88.251' });
 
-var text = {
-  rus: 'Привет привет привет привет привет привет привет привет привет привет привет привет привет привет привет привет привет привет привет',
-  eng: 'Hello, my darling!! How do you do? Im fine. Hello, my darling!! How do you do? Im fine. Hello, my darling!! How do you do? Im fine. Hello, my darling!! How do you do? Im fine. Hello, my darling!! How do you do? Im fine.'
-  //eng: 'Hello my darling'
+const text = {
+  ru: 'Привет привет привет привет привет привет привет привет привет привет привет привет привет привет привет привет привет привет привет',
+  en: 'Hello, my darling!! How do you do? Im fine. Hello, my darling!! How do you do? Im fine. Hello, my darling!! How do you do? Im fine. Hello, my darling!! How do you do? Im fine. Hello, my darling!! How do you do? Im fine.',
+  es: 'Dumbo, notificación de turno con Dr. Pluton Largo el martes 14 de agosto a las 15:30. Dirección: 9 de Julio 000, Z0000IMD Río Gallegos, Santa Cruz, Argentina. Teléfono: 2966 000111. ¡Gracias!',
 };
 
-sms.on('connect', function () {
-    console.log('connected?', sms.isConnected());
-    /*
-    sms.sendSMS({span: 1, number: '89135292926', text: text['rus']}, function (error, response) {
-        console.log(error, response, 'Done!');
+sms.ami.on('connect', () => {
+  console.log('connected?', sms.ami.isConnected());
+
+  sms.sendSMS({ span: 1, number: '01166860534', text: text.es }, (error, response) => {
+    console.log(error, response, 'Done!');
+
+    sms.ami.disconnect(() => {
+      console.log('close after sms');
+
+      if (sms.ami.isConnected()) {
+        console.log('connected');
+      } else {
+        console.log('not connected');
+      }
     });
-    */
-    
-    sms.sendSMS({span: 1, number: '89135292926', text: text['eng']}, function (error, response) {
-        console.log(error, response, 'Done!');
-        sms.close(function () {
-            console.log('close after sms');
-
-            if (sms.isConnected()) {
-                console.log('connected');
-            } else {
-                console.log('not connected');
-            }
-            //process.exit(0);
-        });
-    });
+  });
 });
 
-sms.on('close', function (evt) {
-    console.log('close', evt);
+sms.ami.on('close', (evt) => {
+  console.log('close', evt);
 });
 
-sms.on('end', function (evt) {
-    console.log('end', evt);
+sms.ami.on('end', (evt) => {
+  console.log('end', evt);
 });
 
-sms.on('error', function (err) {
-    console.log('error', err);
+sms.ami.on('error', (err) => {
+  console.log('error', err);
 });

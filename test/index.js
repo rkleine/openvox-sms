@@ -1,7 +1,7 @@
 var expect = require('expect.js');
 var osms = require('../index');
 
-var sms = new osms();
+var sms = new osms({ host: '192.168.88.251' });
 
 describe('SMS', function () {
 
