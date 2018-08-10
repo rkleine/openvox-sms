@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/antirek/openvox-sms",
   "dependencies": {
-    "asterisk-manager": "^0.1.16"
+    "asterisk-manager": "https://github.com/rkleine/NodeJS-AsteriskManager"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
